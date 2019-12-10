@@ -152,7 +152,7 @@
 			$g2status = $row[8];
 		}
 		
-	    $sql3 = "SELECT * FROM accountpayments WHERE userid='$userid'";
+	    $sql3 = "SELECT * FROM accountpayment WHERE userid='$userid'";
 		$result3 = mysqli_query($db, $sql3);
 		while($rowt = mysqli_fetch_array($result3, MYSQLI_NUM))
 		{	
