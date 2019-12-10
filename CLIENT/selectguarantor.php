@@ -10,9 +10,9 @@
 <?php require('connect-db.php');?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>KENTOUR</title>
-	<meta charset="UTF-8">
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->	
         <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
@@ -79,7 +79,9 @@
 				<form class="login100-form validate-form" method="post" action="selectguarantor.php">
 					<span class="login100-form-avatar">
 						<img src="images/avatar-01.jpg" alt="AVATAR"><br>
+						<?php echo $_SESSION['username'];?>
 					</span>
+					<?php include('errors.php'); ?>
 					
 					<div class="wrap-input100 validate-input m-t-85 m-b-35" data-validate = "Enter username">
                         Select First guarantor   
@@ -109,7 +111,7 @@
                             ?>
                         </div>
                         <?php  $uname= $_SESSION['username']; ?> 
-                        <input name="userName" value="<?=$uname?>" style="opacity: 0;" />
+                        <input name="userName" value="<?=$uname?>" style="opacity: 0;" readonly/>
 					</div>
 
 					<div class="container-login100-form-btn">

@@ -16,9 +16,9 @@
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!-- Required meta tags -->
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
   
@@ -103,7 +103,10 @@
 		<p> Quick Links:
             <a href="#approved"><button type="button" class="btn btn-primary">Approved</button></a>
             <a href="#pending"><button type="button" class="btn btn-primary">Pending</button></a>
-            <a href="#rejected"><button type="button" class="btn btn-primary">Rejected</button></a></p>  
+            <a href="#rejected"><button type="button" class="btn btn-primary">Rejected</button></a><br>
+             download the loans report ? 
+             <a href="../STAFF/pdf/loans.php" target='0'><button class="btn btn-secondary"><i class="fa fa-download"></i> Download</button></a>
+            </p>  
 	</div>
 </div>
 

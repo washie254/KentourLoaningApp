@@ -25,9 +25,9 @@
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!-- Required meta tags -->
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
   
@@ -36,7 +36,7 @@
   <title>Kentour Admin</title>
   <!-- bootstrap.min css -->
   <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
-  <!-- Icon Font Css -->
+  <!-- Icon Font Css -->a
   <link rel="stylesheet" href="plugins/themify/css/themify-icons.css">
   <link rel="stylesheet" href="plugins/fontawesome/css/all.css">
   <link rel="stylesheet" href="plugins/magnific-popup/dist/magnific-popup.css">

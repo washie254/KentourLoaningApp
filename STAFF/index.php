@@ -16,9 +16,9 @@
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!-- Required meta tags -->
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
   
@@ -88,6 +88,7 @@
                <li class="nav-item"><a class="nav-link" href="lands.php">Lands</a></li>
 			   <li class="nav-item"><a class="nav-link" href="landapps.php">Land applications</a></li>
 			   <li class="nav-item"><a class="nav-link" href="landpayments.php">Land Payments</a></li>
+			   <li class="nav-item"><a class="nav-link" href="members.php">Members</a></li>
 			   
 			</ul>
 		  </div>
@@ -100,7 +101,20 @@
 <div class="main-wrapper ">
 
 <section class="section intro">
+
 <div class="container">
+<div style="padding: 6px 12px; border: 1px solid #ccc;">
+	<h3>ADMIN DASHBOARD FOR KENTOUR LOANS</h3> 
+	<p> Quick Links:
+	    <a href="#pending"><button type="button" class="btn btn-primary">Pending</button></a>
+        <a href="#approved"><button type="button" class="btn btn-primary">Approved</button></a>
+        <a href="#rejected"><button type="button" class="btn btn-primary">Rejected</button></a>
+        <br> 
+        download the loans report ? <a href="pdf/loans.php" target='0'><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+        </p>  
+</div>
+<br>
+<div class="container" id="pending">
     <div style="padding: 6px 12px; border: 1px solid #ccc;height:auto; verflow: auto;">
         <h3>PENDING CASHLOANS</h3> 
 		<p> the following are the surrently pending loans</p> 
@@ -147,7 +161,7 @@
 <br>
 
 <br>
-<div class="container">
+<div class="container" id="approved">
     <div style="padding: 6px 12px; border: 1px solid #ccc;height:auto; verflow: auto;">
         <h3>APPROVED CASHLOANS</h3> 
 		<p> the following are the approved loans</p> 
@@ -186,8 +200,9 @@
 			</tbody>
 		</table>
     </div>
-</div>	
-<div class="container">
+</div>
+<br>
+<div class="container" id="rejected">
     <div style="padding: 6px 12px; border: 1px solid #ccc;height:auto; verflow: auto;">
         <h3>REJECTED CASHLOANS</h3> 
 		<p> the following are the rejected cashloans</p> 

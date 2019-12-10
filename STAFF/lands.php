@@ -16,9 +16,9 @@
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!-- Required meta tags -->
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
   
@@ -88,6 +88,7 @@
                <li class="nav-item"><a class="nav-link" href="lands.php">Lands</a></li>
 			   <li class="nav-item"><a class="nav-link" href="landapps.php">Land applications</a></li>
 			   <li class="nav-item"><a class="nav-link" href="landpayments.php">Land Payments</a></li>
+			   <li class="nav-item"><a class="nav-link" href="members.php">Members</a></li>
 			   
 			</ul>
 		  </div>
@@ -103,12 +104,16 @@
 <div class="container">
     <div style="padding: 6px 12px; border: 1px solid #ccc;height:auto; verflow: auto;">
         <h3>Here you can Add & View land information</h3> 
-		<p>attach imagse and description for the lands</p> 
+		<p>attach imagse and description for the lands
+		<br> QUICK LINKS: 
+		<a href="#addland"><button class="btn btn-primary">ADD LAND </button></a>
+		<a href="#viewadded"><button class="btn btn-primary">VIEW ADDED LANDS</button></a>
+		</p> 
     </div>
 </div>	
 
 <br>
-  <div class="container">
+  <div class="container" id="addland">
     <div style="padding: 6px 12px; border: 1px solid #ccc;">
         <h3>Add piece of Kentour land</h3> 
 		<p> remember to add descriprion of the lands you post</p>   
@@ -160,7 +165,7 @@
 
 
   <br>
-<div class="container">
+<div class="container" id="viewadded">
     <div style="padding: 6px 12px; border: 1px solid #ccc;height:auto; verflow: auto;">
         <h3>LANDS ON THE SYSTEM</h3> 
 		<p> the following are the lands in the system</p> 

@@ -22,11 +22,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>KENTOUR</title> 
 <!-- For-Mobile-Apps-and-Meta-Tags -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <meta name="keywords" content="Fortune Estates Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, SmartPhone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //For-Mobile-Apps-and-Meta-Tags -->
@@ -89,6 +89,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<li><a href="info.php" ><i class="glyphicon glyphicon-list-alt"></i> info</a></li>
 					<li><a href="contact.php"><i class="glyphicon glyphicon-envelope"></i> Contact </a></li>
 					<li><a href="profile.php"><i class="glyphicon glyphicon-user"></i> Profile</a></li> 
+					<li><a href="help.php"><i class="glyphicon glyphicon-list"></i> Help</a></li>
 					<li><a href="index.php?logout='1'"><i class="glyphicon glyphicon-user"></i> Logout </a></li>
 				</ul>
 			</nav>
@@ -178,7 +179,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											echo '</tr>';
 										echo '</table>';
 										echo '</div>';
-										echo '<a href="regpayment.php">Registration Payment</a><br>';
+										if($row[6]=='APPROVED' && $row[8]=='APPROVED'){
+										    echo '<a href="regpayment.php">Registration Payment</a><br>';
+										   
+										}else{
+										     echo '<a href="#">Await approval to pay</a><br>';
+										}
+										
+										
 										echo 'ACCOUNT STATUS<br>';
 										echo '<h3 class="w3ls-title">'. $status.'</h3>';
 									}

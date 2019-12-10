@@ -12,7 +12,8 @@
 	//connect to database
 	//user: africand
 	//Databse: africand_kentour
-	$db = mysqli_connect('localhost', 'root', '', 'africand_kentour');
+	$db = mysqli_connect('localhost', 'africand_muchemi', 'Muchemi254', 'africand_kentour');
+
 
 	// REGISTER USER
 	if (isset($_POST['reg_member'])) {
@@ -49,6 +50,10 @@
 		if (empty($email)) { array_push($errors, "Email is required"); }
 		if (empty($phone)) { array_push($errors, "Telephone Number Required"); }
 		if (empty($password_1)) { array_push($errors, "Password is required"); }
+		
+		$sql_u = "SELECT * FROM members WHERE username='$username'";
+		$res_u = mysqli_query($db, $sql_u);
+		if (mysqli_num_rows($res_u) > 0) { array_push($errors, "Sorry Username has already been taken"); }
 
 		if ($password_1 != $password_2) {
 			array_push($errors, "The two passwords do not match");
@@ -74,27 +79,33 @@
 		$uname = mysqli_real_escape_string($db, $_POST['userName']);
 		$stat = "PENDING";
 		
-		$query = "UPDATE members
+		if ($guar1==$guar2){ 
+		    array_push($errors, "Kindy Select Different Guarators"); 
+		}
+		
+		if (count($errors) == 0) {
+			$query = "UPDATE members
 					SET guarantor1 = '$guar1', g1status='$stat', guarantor2='$guar2', g2status='$stat'
 					WHERE username='$uname'";
-		mysqli_query($db, $query);
+		    mysqli_query($db, $query);
+		   // header('location: index.php');
+		    $query0 = "SELECT * FROM members WHERE username='$uname' ";
+    		$result0 = mysqli_query($db, $query0);
+    		while($row = mysqli_fetch_array($result0, MYSQLI_NUM))
+    		{
+    			$uid = $row[0];
+    		}
 
-			
-		$query0 = "SELECT * FROM members WHERE username='$uname' ";
-		$result0 = mysqli_query($db, $query0);
-		while($row = mysqli_fetch_array($result0, MYSQLI_NUM))
-		{
-			$uid = $row[0];
-		}
-
-		$required = '500000';
-		$paid = '0';
-		$query2 = "INSERT INTO accountpayment (userid, username, required, paid, balance ) 
-				  VALUES('$uid', '$uname', '$required','$paid', '$required')";
-		mysqli_query($db, $query2);
-
-		$_SESSION['username'] = $uname;
-	 	header('location: index.php');
+    		$required = '500000';
+    		$paid = '0';
+    		$query2 = "INSERT INTO accountpayment (userid, username, required, paid, balance ) 
+    				  VALUES('$uid', '$uname', '$required','$paid', '$required')";
+    		mysqli_query($db, $query2);
+    
+    		$_SESSION['username'] = $uname;
+    	 	header('location: index.php');
+    			
+    		}
 	}
 	
 	// LOGIN A MEMBER 
@@ -140,11 +151,19 @@
 			$g1status = $row[6];
 			$g2status = $row[8];
 		}
-
-
+		
+	    $sql3 = "SELECT * FROM accountpayments WHERE userid='$userid'";
+		$result3 = mysqli_query($db, $sql3);
+		while($rowt = mysqli_fetch_array($result3, MYSQLI_NUM))
+		{	
+			$acntbal = $rowt[5];
+		}
+        
+        
 		$status = 'PENDING';
 
 		// form validation: ensure that the form is correctly filled
+		if ($paidamount > $acntbal ) { array_push($errors, "You cannot pay more than the Balance "); }
 		if (empty($paidamount)) { array_push($errors, "input amount"); }
 		if ($g1status != 'APPROVED') { array_push($errors, "Guarantor 1 has not approved you"); }
 		if ($g2status != 'APPROVED') { array_push($errors, "Guarantor 2 has not approved you"); }
@@ -206,13 +225,17 @@
 			$query ="INSERT INTO cashloans (amount, dateapplied, timeapplied, datedue, memberid, membername, purpose, status) 
 								VALUES('$amount', '$cdate', '$ctime','$duedate', '$uid','$uname','$purpose','$status')";
 			$results = mysqli_query($db, $query);
-
+			
+            echo '<script> alert("Application Successful!"); </script>';
+			header("refresh; url=index.php");
 			if ($results) {
 				echo '<script> alert("Loan Applied Successfully"); </script>';
 				header("refresh; url=aloan.php");	
 			}else {
 				array_push($errors, "Wrong username/password combination");
 			}
+			echo '<script> alert("Application Successful!"); </script>';
+			header("refresh; url=index.php");
 
 
 			
@@ -247,16 +270,20 @@
 			$query ="INSERT INTO landapplications (landid, landtitle, cost, memberid, dateapplied, status) 
 									VALUES('$lid', '$ltitle','$lcost', '$memid','$cdate','PENDING')";
 			$results=mysqli_query($db, $query);
-
+			
+            echo '<script> alert("Application Successful!"); </script>';
+			header("refresh; url=index.php");
 			if ($results){
 				$query1 ="UPDATE land SET status='UNAVAILABLE' WHERE lid='$lid'";
 				mysqli_query($db, $query1);
 
-				echo '<script> alert("Land Application Successful!"); </script>';
-				header("refresh; url=aland.php");
+				echo '<script> alert("Application Successful!"); </script>';
+			    header("refresh; url=index.php");
 			}else{
 				array_push($errors, "coulnd't pay");
 			}
+			echo '<script> alert("Application UnSuccessful!"); </script>';
+			header("refresh; url=index.php");
 		}
 	}
 
@@ -280,7 +307,8 @@
 											VALUES ( '$mid', '$username', '$landid', '$amount', '$mode', '$cdate', '$ctime', '$status') ";
 			$result0 = mysqli_query($db, $query0);
 		
-
+            echo '<script> alert("Payment Successful!"); </script>';
+			header("refresh; url=index.php");
 			if ($result0){
 				echo '<script> alert("Payment Successful!"); </script>';
 				header("refresh; url=paylands.php");
@@ -291,6 +319,30 @@
 		}
 	}
 
+
+    
+	if (isset($_POST['enquire'])) {
+    	error_reporting(0); 
+    	$name= mysqli_real_escape_string($db, $_POST['Name']);
+    	$email = mysqli_real_escape_string($db, $_POST['Email']);
+    	$subject = mysqli_real_escape_string($db, $_POST['Subject']);
+    	$message = mysqli_real_escape_string($db, $_POST['Message']);
+    	$cdate = date("Y-m-d");
+    	$stat = 'PENDING';
+    	
+    	if (empty($name)) { array_push($errors, "Your Account name could not be resolved !");}
+		if (empty($message)) { array_push($errors, "Enter message please !");}
+		
+    	if (count($errors) == 0) {
+        	$query0 = "INSERT INTO  enquiries (name, email, subject, message, date,status)
+    									VALUES ( '$name', '$email', '$subject', '$message', '$cdate','$stat') ";
+    		$result0 = mysqli_query($db, $query0);
+    		echo '<script> alert("Message Sent Successfully !"); </script>';
+			header("refresh; url=contact.php");
+        }
+	}
+	
+	
 	if (isset($_POST['repay_loan'])) {
 		error_reporting(0); 
 		$loanID = mysqli_real_escape_string($db, $_POST['loanID']);
@@ -299,8 +351,16 @@
 		$mid = mysqli_real_escape_string($db, $_POST['mid']);
 		$username = mysqli_real_escape_string($db, $_POST['username']);
 		$status = 'PENDING ';
+		
+		$sq = "SELECT * FROM cashloans WHERE id ='$loanID'";
+		$res = mysqli_query($db, $sq);
+		while($rowz = mysqli_fetch_array($res, MYSQLI_NUM)){
+		    $tamount = $rowz[1];
+		}
 
 		$float = (float)$loanID;
+		
+		if ($amount > $tamount) { array_push($errors, "You cannot Pay more than the balance");}
 		if ($float <= 0) { array_push($errors, "You have no dept remaining for the selected loan");}
 		if (empty($loanID)) { array_push($errors, "You have no loan selected / Approved");}
 		if (empty($amount)) { array_push($errors, "Enter Amount");}
@@ -310,15 +370,18 @@
 			$query0 = "INSERT INTO cashloanpayments (mid, username, loanid, amount, mode , date, time, status)
 											VALUES ( '$mid', '$username', '$loanID', '$amount', '$mode', '$cdate', '$ctime', '$status') ";
 			$result0 = mysqli_query($db, $query0);
-		
+		    echo '<script> alert("Payment Successful!"); </script>';
+			header("refresh; url=index.php");
 
 			if ($result0){
 				echo '<script> alert("Payment Successful!"); </script>';
-				header("refresh; url=index.php");
+			    header("refresh; url=index.php");
 				// header('location:index.php');
 			}else{
 				array_push($errors, "coulnd't pay");
 			}
+			echo '<script> alert("Payment Successful!"); </script>';
+			header("refresh; url=index.php");
 		}
 	}
   

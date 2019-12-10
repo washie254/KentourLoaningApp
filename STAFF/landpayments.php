@@ -16,9 +16,9 @@
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!-- Required meta tags -->
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
   
@@ -88,7 +88,7 @@
                <li class="nav-item"><a class="nav-link" href="lands.php">Lands</a></li>
 			   <li class="nav-item"><a class="nav-link" href="landapps.php">Land applications</a></li>
 			   <li class="nav-item"><a class="nav-link" href="landpayments.php">Land Payments</a></li>
-			   
+			   <li class="nav-item"><a class="nav-link" href="members.php">Members</a></li>
 			</ul>
 		  </div>
 		</div>

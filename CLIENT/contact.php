@@ -1,3 +1,7 @@
+
+<?php
+    include('server.php');
+?>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -6,11 +10,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>KENTOUR</title> 
 <!-- For-Mobile-Apps-and-Meta-Tags -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <meta name="keywords" content="Fortune Estates Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, SmartPhone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- //For-Mobile-Apps-and-Meta-Tags -->
@@ -73,6 +77,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<li><a href="info.php" ><i class="glyphicon glyphicon-list-alt"></i> info</a></li>
 					<li><a href="contact.php"><i class="glyphicon glyphicon-envelope"></i> Contact </a></li>
 					<li><a href="profile.php"><i class="glyphicon glyphicon-user"></i> Profile</a></li> 
+					<li><a href="help.php"><i class="glyphicon glyphicon-list"></i> Help</a></li>
 					<li><a href="index.php?logout='1'"><i class="glyphicon glyphicon-user"></i> Logout </a></li>
 				</ul>
 			</nav>
@@ -103,18 +108,50 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<h3>Contact Us</h3>   
 					</div> 
 				</div>
+				<?php
+                    $user = $_SESSION["username"];
+                    $sql = "SELECT * FROM members WHERE username='$user'";
+                    $result = mysqli_query($db,$sql);
+                    while($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+                        $email = $row[2];
+                    }
+                    
+                ?>
 				<!-- //banner -->
 				<!-- contact -->
 				<div class="w3agile contact"> 
 					<h3 class="w3ls-title">Get In Touch</h3>
 					<div class="contact-form"> 
-						<form action="#" method="post">
-							<input type="text" name="Name" placeholder="Name" required="">
-							<input type="text" name="Email" placeholder="Email" required="">
+						<form action="contact.php" method="post">
+							<input type="text" name="Name" placeholder="Name" value="<?=$user?>" readonly>
+							<input type="text" name="Email" placeholder="Email" value="<?=$email?>" readonly>
 							<input type="text" name="Subject" placeholder="Subject" required="">
 							<textarea name="Message" placeholder="Message" required=""></textarea>
-							<input type="submit" value="SEND">
+							<input type="submit" name="enquire" value="SEND">
 						</form> 
+						<br>
+						<h3>My enquiries and their feedback</h3>
+						<?php
+    						$sql_u = "SELECT * FROM enquiries WHERE name='$user'";
+                    		$res_u = mysqli_query($db, $sql_u);
+                    		if (mysqli_num_rows($res_u) > 0) {  
+                    		    while($rows = mysqli_fetch_array($res_u, MYSQLI_NUM)){
+                    		        $enid = $rows[0];
+                    		        $ensub = $rows[3];
+                    		        $enq = $rows[4];
+                    		        $feed = $rows[5];
+                    		        
+                    		        echo "
+                    		            <h3 style='color:Blue;'>$ensub</h3>
+                    		            <span><b>Enquiry: </b>$enq</span><br>
+                    		            <span style='color:green;'><b>Feedback: </b>$feed</span><br>
+                    		        ";
+                    		    }
+                    		}
+                    		else{
+                    		    echo "You have not made any enquiries Yet !";
+                    		}
+						?>
 					</div>
 					<!-- <div class="map"> 
 						<h3 class="w3ls-title">Route Map</h3>

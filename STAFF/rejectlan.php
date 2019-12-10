@@ -5,6 +5,13 @@
         $loanid = $_GET['id'];
         $memid = $_GET['memb'];
     }
+    
+    
+    $sql0 ="SELECT * FROM landapplications WHERE id='$loanid'";
+    $res0 = mysqli_query($db, $sql0);
+    while($rowd = mysqli_fetch_array($res0, MYSQLI_NUM)){
+        $landid = $rowd[1];
+    }
 ?>
 <?php 
 	//session_start(); 
@@ -23,9 +30,9 @@
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!-- Required meta tags -->
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
   
@@ -118,9 +125,10 @@
               <label for="exampleInputEmail1">Reason for rejecting </label>
               <textarea type="text" class="form-control" name="reason" rows="4" cols="50"placeholder="Enter brief reason for rejecting loan k" ></textarea>
 		  </div>
-          <input name="memid" value="<?=$memid?>" style="opacity: 0;"/>
-          <input name="loanid" value="<?=$loanid?>" style="opacity: 0;"/>
-		  <button type="submit" class="btn btn-success" name="rejectlan" style="width:100%;"><b>reject application </b></button>
+		  <input name="landid" value="<?=$landid?>" style="opacity: 0.6;" readonly/>
+          <input name="memid" value="<?=$memid?>" style="opacity: 0.5;" readonly/>
+          <input name="loanid" value="<?=$loanid?>" style="opacity: 0.4;" readonly/><br>
+		  <br><button type="submit" class="btn btn-success" name="rejectlan" style="width:100%;"><b>reject application </b></button>
 
 		</form>
 

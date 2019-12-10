@@ -7,7 +7,8 @@
 	$_SESSION['success'] = "";
 
 	// connect to database
-	$db = mysqli_connect('localhost', 'root', '', 'africand_kentour');
+$db = mysqli_connect('localhost', 'africand_muchemi', 'Muchemi254', 'africand_kentour');
+
 
 	// STAFF
 	if (isset($_POST['staff_login'])) {
@@ -64,9 +65,14 @@
 		  $sql = "INSERT INTO land (landtitle, location, cost, image, description, status, dateadded ) 
 								VALUES ('$title','$location','$cost','$image','$description','$status','$cdate')";
 		  // execute query
+		  //mysqli_query($db, $sql);
+		  //echo '<script> alert("Land added Successfully!"); </script>';
+		  //header("refresh; url=index.php");
 		  if(mysqli_query($db, $sql)){
 			  echo '<script> alert("Land Successfuly Added !"); </script>';
 			header("refresh; url=lands.php");
+			echo '<script> alert("Land added Successfully!"); </script>';
+			header("refresh; url=index.php");
 		  }
 		  if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
 			$msg = "Image uploaded successfully";
@@ -75,6 +81,28 @@
 		  }
 		}
 	}
+
+	if (isset($_POST['respondenq'])) {
+		$enqid = $_POST['enqid'];
+		$feedback = $_POST['feedback'];
+		$stat ="ATTENDED";
+		
+		if (empty($feedback)) { array_push($errors, "Insert Feedback !"); }
+	
+		if (count($errors) == 0) {
+
+			$sql ="UPDATE enquiries SET 
+			    feedback ='$feedback',
+			    status = '$stat'
+			    
+			    WHERE id='$enqid'";
+			    
+			mysqli_query($db, $sql);
+			
+			header('location: enquiries.php');
+		}
+	}
+
 
 	// If upload button is clicked ...
 	if (isset($_POST['rejectreason'])) {
@@ -124,7 +152,7 @@
 	}
 
 	if (isset($_POST['rejectlan'])) {
-
+        $landid = $_POST['landid'];
 		$reason = $_POST['reason'];
 		$mem = $_POST['memid'];
 		$lid = $_POST['loanid'];
@@ -141,6 +169,9 @@
             $sql0 =  "INSERT INTO rejectedlanreasons (appid, memid, reason, date) 
                                             VALUES ('$lid','$mem','$reason','$cdate')";
 			mysqli_query($db, $sql0);
+			
+			$sql1 =  "UPDATE land SET status='AVAILABLE' WHERE lid='$landid'";
+			mysqli_query($db, $sql1);
 			
 			header('location: landapps.php');
 		}

@@ -16,9 +16,9 @@
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+  <head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!-- Required meta tags -->
-  <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
   
@@ -88,6 +88,7 @@
                <li class="nav-item"><a class="nav-link" href="lands.php">Lands</a></li>
 			   <li class="nav-item"><a class="nav-link" href="landapps.php">Land applications</a></li>
 			   <li class="nav-item"><a class="nav-link" href="landpayments.php">Land Payments</a></li>
+			   <li class="nav-item"><a class="nav-link" href="members.php">Members</a></li>
 			   
 			</ul>
 		  </div>
@@ -216,6 +217,7 @@
 				<th scope="col">Member</th>
 				<th scope="col">Date Applied</th>
 				<th scope="col">Status</th>
+				<th scope="col">Reason</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -227,7 +229,13 @@
 				$result = mysqli_query($conn, $sql);
 				while($row = mysqli_fetch_array($result, MYSQLI_NUM))
 				{	
-				
+				    $apid =$row[0];
+				    $sql4 = "SELECT * FROM rejectedlanreasons WHERE appid='$apid'";
+    				$result4 = mysqli_query($conn, $sql4);
+    				while($rowz = mysqli_fetch_array($result4, MYSQLI_NUM))
+    				{
+    				    $reason = $rowz[3];
+    				}
 					echo '<tr>';
 						echo '<td>'.$row[0].'</td> '; // l ID 
 						echo '<td>'.$row[1].'</td> '; //MEM ID
@@ -236,6 +244,7 @@
 						echo '<td>'.$row[4].'</td> '; //DATE APPLIED
 						echo '<td>'.$row[5].'</td> '; //Purpose
 						echo '<td>'.$row[6].'</td> '; //Purpose;
+						echo '<td>'.$reason.'</td> '; //Reason
 					echo '</tr>';
 				}
 				?>

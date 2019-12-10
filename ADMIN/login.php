@@ -26,9 +26,6 @@
 		<div class="input-group">
 			<button type="submit" class="btn" name="login_admin">Login</button>
 		</div>
-		<p>
-			Not an Admin ? <a href="register.php">Sign up</a>
-		</p>
 	</form>
 
 

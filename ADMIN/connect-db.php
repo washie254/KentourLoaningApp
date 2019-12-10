@@ -1,8 +1,8 @@
 <?php
 // server info
 $server = 'localhost';
-$user = 'root';
-$pass = '';
+$user = 'africand_muchemi';
+$pass = 'Muchemi254';
 $db = 'africand_kentour';
 
 // connect to the database
